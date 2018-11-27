@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ filteredTodos, actions }) => (
-  <ul className="todo-list">
+const TodoList = ({ filteredTodos, loading, actions }) => (
+  <ul className="todo-list" style={{ opacity: loading ? 0.2 : 1 }}>
     {filteredTodos.map(todo => (
       <TodoItem key={todo.id} todo={todo} {...actions} />
     ))}
@@ -18,6 +18,7 @@ TodoList.propTypes = {
       text: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  loading: PropTypes.bool,
   actions: PropTypes.object.isRequired,
 };
 

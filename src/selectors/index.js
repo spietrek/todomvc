@@ -4,6 +4,8 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 const getVisibilityFilter = state => state.visibilityFilter;
 const getTodos = state => state.todos;
 
+export const getLoading = state => state.loading;
+
 export const getVisibleTodos = createSelector(
   [getVisibilityFilter, getTodos],
   (visibilityFilter, todos) => {

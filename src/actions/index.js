@@ -30,38 +30,87 @@ const setVisibilityFilterDispatch = filter => ({
   filter,
 });
 
+const setLoadingDispatch = loading => ({
+  type: types.SET_LOADING,
+  loading,
+});
+
+const replaceTodosDispatch = todos => ({
+  type: types.REPLACE_TODOS,
+  todos,
+});
+
 export const addTodo = text => (dispatch, getState) => {
-  taskRequest()
-    .then(() => dispatch(addTodoDispatch(text)))
-    .catch(() => dispatch(addTodoDispatch(text)));
+  // const currentTodos = getState().todos;
+  // dispatch(addTodoDispatch(text));
+  // dispatch(setLoadingDispatch(true));
+  // addTodoRequest(text)
+  //   .catch(() => dispatch(replaceTodosDispatch(currentTodos)))
+  //   .then(() => dispatch(setLoadingDispatch(false)));
+
+  addTodoRequest(text).then(() => dispatch(addTodoDispatch(text)));
 };
 
 export const deleteTodo = id => (dispatch, getState) => {
-  dispatch(deleteTodoDispatch(id));
+  // const currentTodos = getState().todos;
+  // dispatch(deleteTodoDispatch(id));
+  // dispatch(setLoadingDispatch(true));
+  // deleteTodoRequest(id)
+  //   .catch(() => dispatch(replaceTodosDispatch(currentTodos)))
+  //   .then(() => dispatch(setLoadingDispatch(false)));
+
+  deleteTodoRequest(id).then(() => dispatch(deleteTodoDispatch(id)));
 };
 
 export const editTodo = (id, text) => (dispatch, getState) => {
-  dispatch(editTodoDispatch(id, text));
+  // const currentTodos = getState().todos;
+  // dispatch(editTodoDispatch(id, text));
+  // dispatch(setLoadingDispatch(true));
+  // editTodoRequest(id, text)
+  //   .catch(() => dispatch(replaceTodosDispatch(currentTodos)))
+  //   .then(() => dispatch(setLoadingDispatch(false)));
+
+  editTodoRequest(id, text).then(() => dispatch(editTodoDispatch(id, text)));
 };
 
-export const completeTodo = id => (dispatch, getState) => {
+export const completeTodo = id => dispatch => {
   dispatch(completeTodoDispatch(id));
 };
 
-export const clearCompleted = () => (dispatch, getState) => {
+export const clearCompleted = () => dispatch => {
   dispatch(clearCompletedDispatch());
 };
 
-export const setVisibilityFilter = filter => (dispatch, getState) => {
+export const setVisibilityFilter = filter => dispatch => {
   dispatch(setVisibilityFilterDispatch(filter));
 };
 
-const taskRequest = task => {
+const shouldTextFail = text => text.includes('error');
+
+const shouldIdFail = id => id === 0;
+
+const addTodoRequest = text => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // const shouldSucceed = !shouldFail(taskId);
-      const shouldSucceed = true;
-      // console.log(`HTTP /like_Task/${taskId}?like=${like} (${shouldSucceed ? 'success' : 'failure'})`);
+      const shouldSucceed = !shouldTextFail(text);
+      shouldSucceed ? resolve() : reject();
+    }, 3000);
+  });
+};
+
+const deleteTodoRequest = id => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldSucceed = !shouldIdFail(id);
+      shouldSucceed ? resolve() : reject();
+    }, 3000);
+  });
+};
+
+const editTodoRequest = (id, text) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldSucceed = !shouldIdFail(id) && !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
     }, 3000);
   });

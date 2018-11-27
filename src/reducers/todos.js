@@ -5,11 +5,12 @@ import {
   COMPLETE_TODO,
   COMPLETE_ALL_TODOS,
   CLEAR_COMPLETED,
+  REPLACE_TODOS,
 } from '../constants/ActionTypes';
 
 const initialState = [
   {
-    text: 'Use Redux',
+    text: 'Use React',
     completed: false,
     id: 0,
   },
@@ -45,6 +46,9 @@ export default function todos(state = initialState, action) {
 
     case CLEAR_COMPLETED:
       return state.filter(todo => todo.completed === false);
+
+    case REPLACE_TODOS:
+      return action.todos;
 
     default:
       return state;
