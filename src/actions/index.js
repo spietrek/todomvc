@@ -41,36 +41,57 @@ const replaceTodosDispatch = todos => ({
 });
 
 export const addTodo = text => (dispatch, getState) => {
-  // const currentTodos = getState().todos;
+  // 1
+  addTodoRequest(text).then(() => dispatch(addTodoDispatch(text)));
+
+  // 2
+  // dispatch(setLoadingDispatch(true));
+  // addTodoRequest(text).then(() => dispatch(setLoadingDispatch(false)));
+
+  // 3
+  // const todos = getState().todos;
   // dispatch(addTodoDispatch(text));
   // dispatch(setLoadingDispatch(true));
   // addTodoRequest(text)
-  //   .catch(() => dispatch(replaceTodosDispatch(currentTodos)))
+  //   .catch(() => dispatch(replaceTodosDispatch(todos)))
   //   .then(() => dispatch(setLoadingDispatch(false)));
-
-  addTodoRequest(text).then(() => dispatch(addTodoDispatch(text)));
 };
 
 export const deleteTodo = id => (dispatch, getState) => {
-  // const currentTodos = getState().todos;
+  // 1
+  deleteTodoRequest(id).then(() => dispatch(deleteTodoDispatch(id)));
+
+  // 2
+  // const todos = getState().todos;
   // dispatch(deleteTodoDispatch(id));
   // dispatch(setLoadingDispatch(true));
   // deleteTodoRequest(id)
-  //   .catch(() => dispatch(replaceTodosDispatch(currentTodos)))
+  //   .catch(() => dispatch(replaceTodosDispatch(todos)))
   //   .then(() => dispatch(setLoadingDispatch(false)));
 
-  deleteTodoRequest(id).then(() => dispatch(deleteTodoDispatch(id)));
+  // 3
+  // const deletedTodo = getState().todos.find(item => item.id === id);
+  // dispatch(deleteTodoDispatch(id));
+  // dispatch(setLoadingDispatch(true));
+  // deleteTodoRequest(id)
+  //   .catch(() => {
+  //     const todos = [...getState().todos, deletedTodo];
+  //     dispatch(replaceTodosDispatch(todos));
+  //   })
+  //   .then(() => dispatch(setLoadingDispatch(false)));
 };
 
 export const editTodo = (id, text) => (dispatch, getState) => {
-  // const currentTodos = getState().todos;
+  // 1
+  editTodoRequest(id, text).then(() => dispatch(editTodoDispatch(id, text)));
+
+  // 2
+  // const todos = getState().todos;
   // dispatch(editTodoDispatch(id, text));
   // dispatch(setLoadingDispatch(true));
   // editTodoRequest(id, text)
-  //   .catch(() => dispatch(replaceTodosDispatch(currentTodos)))
+  //   .catch(() => dispatch(replaceTodosDispatch(todos)))
   //   .then(() => dispatch(setLoadingDispatch(false)));
-
-  editTodoRequest(id, text).then(() => dispatch(editTodoDispatch(id, text)));
 };
 
 export const completeTodo = id => dispatch => {
@@ -94,7 +115,7 @@ const addTodoRequest = text => {
     setTimeout(() => {
       const shouldSucceed = !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
-    }, 3000);
+    }, 750);
   });
 };
 
@@ -103,7 +124,7 @@ const deleteTodoRequest = id => {
     setTimeout(() => {
       const shouldSucceed = !shouldIdFail(id);
       shouldSucceed ? resolve() : reject();
-    }, 3000);
+    }, 750);
   });
 };
 
@@ -112,6 +133,6 @@ const editTodoRequest = (id, text) => {
     setTimeout(() => {
       const shouldSucceed = !shouldIdFail(id) && !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
-    }, 3000);
+    }, 750);
   });
 };

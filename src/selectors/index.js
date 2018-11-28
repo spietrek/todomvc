@@ -2,7 +2,10 @@ import { createSelector } from 'reselect';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 
 const getVisibilityFilter = state => state.visibilityFilter;
-const getTodos = state => state.todos;
+const getTodos = state =>
+  state.todos.sort((a, b) =>
+    a.text.toLowerCase() > b.text.toLowerCase() ? 1 : b.text.toLowerCase() > a.text.toLowerCase() ? -1 : 0,
+  );
 
 export const getLoading = state => state.loading;
 
