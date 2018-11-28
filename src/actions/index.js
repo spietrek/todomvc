@@ -128,7 +128,7 @@ const addTodoRequest = text => {
     setTimeout(() => {
       const shouldSucceed = !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
-    }, 1500);
+    }, 3000);
   });
 };
 
@@ -146,6 +146,6 @@ const editTodoRequest = (id, text) => {
     setTimeout(() => {
       const shouldSucceed = !shouldIdFail(id) && !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
-    }, 1500);
+    }, 3000);
   });
 };
