@@ -51,6 +51,11 @@ export const addTodo = text => (dispatch, getState) => {
   // 3
   // const todos = getState().todos;
   // dispatch(addTodoDispatch(text));
+  // addTodoRequest(text).catch(() => dispatch(replaceTodosDispatch(todos)));
+
+  // 4
+  // const todos = getState().todos;
+  // dispatch(addTodoDispatch(text));
   // dispatch(setLoadingDispatch(true));
   // addTodoRequest(text)
   //   .catch(() => dispatch(replaceTodosDispatch(todos)))
@@ -62,6 +67,10 @@ export const deleteTodo = id => (dispatch, getState) => {
   deleteTodoRequest(id).then(() => dispatch(deleteTodoDispatch(id)));
 
   // 2
+  // dispatch(setLoadingDispatch(true));
+  // deleteTodoRequest(id).then(() => dispatch(setLoadingDispatch(false)));
+
+  // 3
   // const todos = getState().todos;
   // dispatch(deleteTodoDispatch(id));
   // dispatch(setLoadingDispatch(true));
@@ -69,7 +78,7 @@ export const deleteTodo = id => (dispatch, getState) => {
   //   .catch(() => dispatch(replaceTodosDispatch(todos)))
   //   .then(() => dispatch(setLoadingDispatch(false)));
 
-  // 3
+  // 4
   // const deletedTodo = getState().todos.find(item => item.id === id);
   // dispatch(deleteTodoDispatch(id));
   // dispatch(setLoadingDispatch(true));
@@ -86,6 +95,10 @@ export const editTodo = (id, text) => (dispatch, getState) => {
   editTodoRequest(id, text).then(() => dispatch(editTodoDispatch(id, text)));
 
   // 2
+  // dispatch(setLoadingDispatch(true));
+  // editTodoRequest(id, text).then(() => dispatch(setLoadingDispatch(false)));
+
+  // 3
   // const todos = getState().todos;
   // dispatch(editTodoDispatch(id, text));
   // dispatch(setLoadingDispatch(true));
@@ -106,7 +119,7 @@ export const setVisibilityFilter = filter => dispatch => {
   dispatch(setVisibilityFilterDispatch(filter));
 };
 
-const shouldTextFail = text => text.includes('error');
+const shouldTextFail = text => text.toLowerCase().includes('error');
 
 const shouldIdFail = id => id === 0;
 
@@ -115,7 +128,7 @@ const addTodoRequest = text => {
     setTimeout(() => {
       const shouldSucceed = !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
-    }, 750);
+    }, 1500);
   });
 };
 
@@ -124,7 +137,7 @@ const deleteTodoRequest = id => {
     setTimeout(() => {
       const shouldSucceed = !shouldIdFail(id);
       shouldSucceed ? resolve() : reject();
-    }, 750);
+    }, 1500);
   });
 };
 
@@ -133,6 +146,6 @@ const editTodoRequest = (id, text) => {
     setTimeout(() => {
       const shouldSucceed = !shouldIdFail(id) && !shouldTextFail(text);
       shouldSucceed ? resolve() : reject();
-    }, 750);
+    }, 1500);
   });
 };
